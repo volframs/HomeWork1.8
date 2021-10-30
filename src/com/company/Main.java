@@ -115,8 +115,9 @@ public class Main {
             sum+=arr[0];
 
         }
-        middleSum=sum/arr.length;
-        return sum;
+
+        middleSum=calcAverage(sum,arr.length);
+        return middleSum;
 
     }
 
@@ -127,5 +128,10 @@ public class Main {
             arr[i] = random.nextInt(100_000) + 100_000;
         }
         return arr;
+    }
+
+    public static double calcAverage(int sum,int len){
+        double middleSum=sum/len;
+        return middleSum;
     }
 }
