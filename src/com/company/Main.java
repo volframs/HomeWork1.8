@@ -6,119 +6,107 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+        // write your code here
         // Здесь пишем код и вызываем другие методы
 
-        int year=1991;
-        task1(year);
+        int year = 1991;
+        isLeapYear(year);
 
         int currentYear = LocalDate.now().getYear();
-        int clientOS =1;
-        task2(currentYear,clientOS);
+        int clientOS = 1;
+        taskOsUpp(currentYear, clientOS);
 
         int deliveryDistance = 95;
-        task3(deliveryDistance);
+        delivery(deliveryDistance);
 
-        String str= "aabccddefgghiijjkk";
-        task4(str);
+        String str = "abcddefgghiijjkk";
+        deletion(str);
 
         int[] massiv = {3, 2, 1, 6, 5};
-        task5(massiv);
+        viceVersa(massiv);
 
         int[] arr = generateRandomArray();
-        double midSum=task6(arr);
+        double midSum = findTheValue(arr);
         System.out.println("Искомая средняя величина - " + midSum);
 
     }
 
-    public static void task1(int year) {
-        boolean check = year%4==0&&year%100!=0||year%400==0;
-        if (check){
-            System.out.println(year +" — високосный год");
-        }
-        else {
-            System.out.println(year +" - не високосный год");
+    public static void isLeapYear(int year) {
+        boolean check = checkYear(year);
+        if (check) {
+            System.out.println(year + " — високосный год");
+        } else {
+            System.out.println(year + " - не високосный год");
         }
     }
 
-    public static void task2(int clientDeviceYear,int clientOS) {
+    public static void taskOsUpp(int clientDeviceYear, int clientOS) {
 
-        int yearOfUpdfte=2015;
+        int yearOfUpdfte = 2015;
 
-        if(clientOS==1){
-            if(clientDeviceYear>=yearOfUpdfte){
+        if (clientOS == 1) {
+            if (checkYearOs(clientDeviceYear, yearOfUpdfte)) {
                 System.out.println("Установите версию приложения для iOS по ссылке");
-            }
-            else{
+            } else {
                 System.out.println("Установите облегченную версию приложения для iOS по ссылке");
             }
-        }
-        else{
-            if(clientDeviceYear>=yearOfUpdfte){
+        } else {
+            if (checkYearOs(clientDeviceYear, yearOfUpdfte)) {
                 System.out.println("Установите версию приложения для Android по ссылке");
-            }
-            else{
+            } else {
                 System.out.println("Установите облегченную версию приложения для Android по ссылке");
             }
         }
 
     }
 
-    public static void task3(int deliveryDistance){
+    public static int delivery(int deliveryDistance) {
 
         int dayNeed = 0;
-        if(deliveryDistance>60&&deliveryDistance<=100){
-            dayNeed=3;
-        }
-        else{
-            if(deliveryDistance > 20 && deliveryDistance <= 60) {
+        if (deliveryDistance > 60 && deliveryDistance <= 100) {
+            dayNeed = 3;
+        } else {
+            if (deliveryDistance > 20 && deliveryDistance <= 60) {
                 dayNeed = 2;
-            }
-            else{
+            } else {
                 dayNeed = 1;
             }
         }
         System.out.println("Потребуется дней: " + dayNeed);
+        return dayNeed;
     }
 
-    public static void task4(String str){
-        char[] letters= str.toCharArray();
-        boolean check = true;
+    public static void deletion(String str) {
+        char[] letters = str.toCharArray();
+        //boolean check = true;
         for (int i = 0; i < letters.length; i++) {
-            if(letters[i]==letters[i+1]){
-                System.out.println("Присутствует дубль. Это символ "+letters[i]);
-                check = false;
-                break;
+            if (letters[i] == letters[i + 1]) {
+                System.out.println("Присутствует дубль. Это символ " + letters[i]);
+                //check = false;
+                return;
             }
         }
-        if(check)
-            System.out.println("Дублей нет");
+//        if(check)
+//            System.out.println("Дублей нет");
 
     }
 
-    public static void task5(int[] massiv){
-        int l=massiv.length;
-        int j=0;
-        for (int i = 0; i < l/2; i++) {
-            j=massiv[l-i-1];
-            massiv[l-i-1]=massiv[i];
-            massiv[i]=j;
+    public static void viceVersa(int[] solid) {
+        int l = solid.length;
+        int j = 0;
+        for (int i = 0; i < l / 2; i++) {
+            j = solid[l - i - 1];
+            solid[l - i - 1] = solid[i];
+            solid[i] = j;
         }
-        System.out.println("измененый массив " + Arrays.toString(massiv));
+        System.out.println("измененый массив " + Arrays.toString(solid));
 
     }
 
-    public static double task6(int[] arr){
-        int sum=0;
+    public static double findTheValue(int[] arr) {
         double middleSum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum+=arr[0];
-
-        }
-
-        middleSum=calcAverage(sum,arr.length);
+        middleSum = calcAverage(summOfArr(arr), arr.length);
         return middleSum;
-
     }
 
     public static int[] generateRandomArray() {
@@ -130,8 +118,28 @@ public class Main {
         return arr;
     }
 
-    public static double calcAverage(int sum,int len){
-        double middleSum=sum/len;
+    public static double calcAverage(int sum, int len) {
+        double middleSum = sum / len;
         return middleSum;
     }
+
+    public static boolean checkYear(int year) {
+        boolean yesOrNot = year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
+        return yesOrNot;
+    }
+
+    public static boolean checkYearOs(int clientDeviceYear, int yearOfUpdfte) {
+        boolean yesOrNot = clientDeviceYear >= yearOfUpdfte;
+        return yesOrNot;
+    }
+
+    public static int summOfArr(int[] arr) {
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++)
+            sum += arr[0];
+        return sum;
+
+    }
 }
+
+
